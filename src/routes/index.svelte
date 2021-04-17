@@ -1,49 +1,76 @@
+<script context="module">
+  import client, { defaultRequestConfig as reqConfig } from '$lib/storyBlokClient';
+
+  export async function load() {
+    const res = await client.getAll('cdn/stories', reqConfig);
+    return { props: { stories: res || [] } };
+  }
+</script>
+
 <script>
-	import Counter from '$lib/Counter.svelte';
+  import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.es';
+  export let stories;
+
+  const resolver = new RichTextResolver();
+
+  const [food, drinks, info, bunker] = stories[0].content.body;
+  console.log(food);
 </script>
 
 <svelte:head>
-	<title>Hello world!</title>
+  <title>Flindt & Ørsted</title>
 </svelte:head>
 
-<main>
-	<h1>Hello world!</h1>
+<section>
+  <h2>{food.header}</h2>
+  {@html resolver.render(food.body)}
+</section>
 
-	<Counter />
+<section>
+  <h2>{drinks.header}</h2>
+  {@html resolver.render(drinks.body)}
+</section>
 
-	<p>Visit <a href="https://svelte.dev">svelte.dev</a> to learn how to build Svelte apps.</p>
-</main>
+<section>
+  <h2>{info.header}</h2>
+  {@html resolver.render(info.body)}
+</section>
+
+<section>
+  <h2>{bunker.header}</h2>
+  {@html resolver.render(bunker.body)}
+</section>
 
 <style style lang="postcss">
-	main {
-		text-align: center;
-		padding: 1em;
-		margin: 0 auto;
-	}
+  main {
+    text-align: center;
+    padding: 1em;
+    margin: 0 auto;
+  }
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4rem;
-		font-weight: 100;
-		line-height: 1.1;
-		margin: 4rem auto;
-		max-width: 14rem;
-	}
+  h1 {
+    color: #ff3e00;
+    text-transform: uppercase;
+    font-size: 4rem;
+    font-weight: 100;
+    line-height: 1.1;
+    margin: 4rem auto;
+    max-width: 14rem;
+  }
 
-	p {
-		max-width: 14rem;
-		margin: 2rem auto;
-		line-height: 1.35;
-	}
+  p {
+    max-width: 14rem;
+    margin: 2rem auto;
+    line-height: 1.35;
+  }
 
-	@media (min-width: 480px) {
-		h1 {
-			max-width: none;
-		}
+  @media (min-width: 480px) {
+    h1 {
+      max-width: none;
+    }
 
-		p {
-			max-width: none;
-		}
-	}
+    p {
+      max-width: none;
+    }
+  }
 </style>
