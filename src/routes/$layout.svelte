@@ -12,7 +12,6 @@
 <script>
   import { onMount } from 'svelte';
   import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.es';
-  import smoothscroll from 'smoothscroll-polyfill';
   import '../app.postcss';
   import { formattedSrc, responsiveSrcSet } from '$lib/helpers';
   import NavBar from '$lib/components/NavBar.svelte';
@@ -21,7 +20,8 @@
   const sections = body.map((section) => section.header);
   const resolver = new RichTextResolver();
 
-  onMount(() => {
+  onMount(async () => {
+    const smoothscroll = (await import('smoothscroll-polyfill')).default;
     smoothscroll.polyfill();
   });
 </script>
