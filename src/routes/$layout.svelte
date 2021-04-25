@@ -4,7 +4,6 @@
   export async function load() {
     const res = await client.getAll('cdn/stories', reqConfig);
     const { header: headerImg, body, footer } = res[0].content;
-    console.log(body);
     return { context: { body }, props: { body, headerImg, footer: footer[0] } };
   }
 </script>
