@@ -1,26 +1,107 @@
+<script context="module">
+  import client, { defaultRequestConfig as reqConfig } from '$lib/storyBlokClient';
+
+  export async function load() {
+    const res = await client.getAll('cdn/stories', reqConfig);
+    const { header: headerImg, body, footer } = res[0].content;
+    console.log(body);
+    return { context: { body }, props: { body, headerImg, footer: footer[0] } };
+  }
+</script>
+
 <script>
+  import { onMount } from 'svelte';
+  import RichTextResolver from 'storyblok-js-client/dist/rich-text-resolver.es';
+  import smoothscroll from 'smoothscroll-polyfill';
   import '../app.postcss';
+  import { formattedSrc, responsiveSrcSet } from '$lib/helpers';
   import NavBar from '$lib/components/NavBar.svelte';
+
+  export let body, headerImg, footer;
+  const sections = body.map((section) => section.header);
+  const resolver = new RichTextResolver();
+
+  onMount(() => {
+    smoothscroll.polyfill();
+  });
 </script>
 
 <header>
-  <img src="/loft.png" alt="Loftet i cafeen" />
+  <img
+    alt="Loftet i cafeen"
+    class="header"
+    src={formattedSrc(headerImg.filename, 400, 1080 / 1920)}
+    srcset={responsiveSrcSet(headerImg.filename, 1080 / 1920)}
+    sizes="(max-width: 768px) calc(50vh * (1920 / 1080)), 100vw"
+  />
 </header>
 
 <main>
-  <NavBar />
+  <NavBar titles={sections} />
   <slot />
 </main>
 
-<footer />
+<footer>
+  <div class="image-wrapper">
+    <a
+      rel="external"
+      href="https://maps.apple.com/?address=N%C3%B8rre%20Farimagsgade%206,%201364%20K%C3%B8benhavn%20K,%20Denmark&auid=5475723140101208995&ll=55.680731,12.564043&lsp=9902&q=Flindt%20%26%20%C3%98rsted&_ext=ChgKBAgEEHAKBAgFEAMKBAgGEAgKBAgKEAASJimmEH6JydZLQDHI+Hp60x0pQDkk5qPl79dLQEEKQ5r1+yUpQFAE"
+    >
+      <img
+        alt={footer.image.alt}
+        class="footer"
+        src={formattedSrc(footer.image.filename, 400, 1205 / 1920)}
+        srcset={responsiveSrcSet(footer.image.filename, 1205 / 1920)}
+        sizes="(min-width: 1220px) calc(50vw - 200px), (min-width: 780px) calc(50vw - 70px), calc(100vw - 110px)"
+      />
+    </a>
+  </div>
+  <div class="storyblok-content-wrapper">{@html resolver.render(footer.body)}</div>
+</footer>
 
 <style>
-  img {
+  img.header {
     width: 100%;
     height: auto;
   }
 
-  main {
-    padding: 80px;
+  footer {
+    padding: var(--footerPadding);
+    background-color: var(--dustyGreen);
+    display: flex;
+    flex-wrap: wrap-reverse;
+  }
+
+  img.footer {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  footer > div {
+    flex-basis: 50%;
+  }
+
+  .image-wrapper {
+    padding: var(--footerImagePadding);
+  }
+
+  .storyblok-content-wrapper {
+    padding: 0 var(--bodyPadding);
+  }
+  @media only screen and (max-width: 767px) {
+    img.header {
+      height: 50vh;
+      width: 100%;
+      object-fit: cover;
+    }
+    footer > div {
+      flex-basis: 100%;
+    }
+    .image-wrapper {
+    }
+    .storyblok-content-wrapper {
+      padding-right: 0;
+    }
   }
 </style>

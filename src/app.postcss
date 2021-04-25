@@ -1,4 +1,7 @@
 /* Write your global styles here, in PostCSS syntax */
+@import 'normalize.css';
+@import './reset.postcss';
+
 @font-face {
   font-family: 'Minion Pro Regular';
   src: url(./fonts/Minion+Pro+Regular.woff) format('woff'),
@@ -8,35 +11,42 @@
 }
 
 @font-face {
-  font-family: 'Roboto-Regular';
+  font-family: 'Roboto';
   src: url(./fonts/Roboto-Regular.woff) format('woff'),
     url(./fonts/Roboto-Regular.woff2) format('woff2');
   font-style: normal;
 }
 
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-    'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: Minion + Pro + Regular -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   /* Colors */
   --cphGreen: hsl(137, 28%, 13%);
   --dustyGreen: hsl(97, 5%, 48%);
   --beige: hsl(39, 100%, 95%);
   --red: hsl(5, 46%, 35%);
+  --white: hsl(0, 0%, 100%);
 
   --primaryBg: var(--beige);
   --footerBg: var(--dustyGreen);
   --secondaryBg: var(--white);
+  --bodyFontColor: var(--white);
   --headerFontColor: var(--lightGrey);
   --footerFontColor: var(--lightGrey);
   --navActive: var(--white);
 
   /* Spacing */
-  --bodyPadding: 35px;
+  --footerPadding: 40px 00px;
+  --footerImagePadding: 0 100px;
+  --footerContentPadding: 50px;
+  --bodyPadding: 60px;
+  --navBarPadding: 60px;
   --navBarGap: 10px;
   --collectionRowPadding: 50px;
+  --paragraphBottomMargin: 40px;
 
   /* Font Sizes */
-  --font1: 1.875rem;
+  --font1: 2.488rem;
   --font2: 2.074rem;
   --font3: 1.728rem;
   --font4: 1.44rem;
@@ -44,7 +54,15 @@
   --font6: 1rem;
   --font7: 0.833rem;
 
-  --marqueeFontSize: var(--font1);
+  --headerFontSize: var(--font1);
+  --subHeaderFontSize: var(--font2);
+  --bodyFontSize: var(--font5);
+  --navFontSize: var(--font2);
+
+  /* Sizes */
+  --navWidth: 6em;
+  --navBorderWidth: 4px;
+  --bodyLineHeight: 1.8;
 
   /* Stacking z-levels */
   --headerLevel: 10;
@@ -52,15 +70,14 @@
 }
 
 html {
+  scroll-behavior: smooth;
   background: var(--primaryBg);
 }
 
 body {
-  margin: 0;
-  font-size: 100%;
-  min-height: 100%;
-  color: var(--text);
-  -webkit-overflow-scrolling: touch;
+  color: var(--bodyFontColor);
+  font-size: var(--bodyFontSize);
+  line-height: var(--bodyLineHeight);
   /* background must be set here for Chrome */
   background: var(--primaryBg);
 }
@@ -77,80 +94,46 @@ body:before {
   background: var(--primaryBg);
 }
 
-/* Reset defaults */
-* {
-  box-sizing: border-box;
-}
-*:before {
-  box-sizing: inherit;
-}
-*:after {
-  box-sizing: inherit;
+h2 {
+  font-size: var(--headerFontSize);
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 20px;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
+.storyblok-content-wrapper {
+  h3 {
+    font-size: var(--subHeaderFontSize);
+  }
+  p:not(:last-of-type) {
+    margin-bottom: var(--paragraphBottomMargin);
+  }
 }
 
-button {
-  background-color: transparent;
-  color: inherit;
-  border-width: 0;
-  padding: 0;
-  cursor: pointer;
-  font-family: inherit;
+/* Tablet */
+@media only screen and (max-width: 1200px) {
+  :root {
+    --headerFontSize: var(--font3);
+    --subHeaderFontSize: var(--font4);
+    --bodyFontSize: var(--font6);
+    --bodyLineHeight: 1.5;
+    --bodyPadding: 40px 35px;
+    --footerImagePadding: 0 35px;
+    --paragraphBottomMargin: 20px;
+    --navFontSize: var(--font3);
+    --navWidth: 5em;
+  }
 }
-
-figure {
-  margin: 0;
-}
-
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
-
-ul,
-ol,
-dd {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  font-size: inherit;
-  font-weight: inherit;
-}
-
-p {
-  margin: 0;
-}
-
-cite {
-  font-style: normal;
-}
-
-fieldset {
-  border-width: 0;
-  padding: 0;
-  margin: 0;
-}
-
-/* Tablet - 768px */
-@media only screen and (min-width: 48em) {
-}
-/* Desktop - 1080px*/
-@media only screen and (min-width: 67.5em) {
+/* Handheld - */
+@media only screen and (max-width: 767px) {
+  :root {
+    --headerFontSize: var(--font4);
+    --subHeaderFontSize: var(--font5);
+    --navFontSize: var(--font4);
+    --navBorderWidth: 2px;
+    --footerImagePadding: 0 55px;
+    --navBarPadding: 40px 35px 0 35px;
+  }
 }
 /* Desktop 2560px*/
 @media only screen and (min-width: 160em) {
