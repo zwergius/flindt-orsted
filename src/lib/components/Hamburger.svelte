@@ -39,6 +39,15 @@
 {/if}
 
 <style>
+  button {
+    position: absolute;
+    left: 50%;
+    top: 40px;
+    transform: translateX(-50%);
+    z-index: 20;
+    stroke: var(--white);
+  }
+
   nav {
     position: fixed;
     left: 0;
@@ -81,15 +90,6 @@
     transition: all 0.3s ease-in-out;
   }
 
-  button {
-    position: absolute;
-    left: 50%;
-    top: 40px;
-    transform: translateX(-50%);
-    z-index: 20;
-    stroke: var(--white);
-  }
-
   .open {
     stroke: var(--black);
   }
@@ -114,5 +114,11 @@
     transform-origin: top left;
     transform: translate(-16px, 15px) rotate(-45deg);
     stroke: var(--black);
+  }
+  /* Handheld - */
+  @media only screen and (min-width: 767px) {
+    button {
+      display: none;
+    }
   }
 </style>
