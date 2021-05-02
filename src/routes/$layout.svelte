@@ -14,6 +14,7 @@
   import '../app.postcss';
   import { formattedSrc, responsiveSrcSet } from '$lib/helpers';
   import NavBar from '$lib/components/NavBar.svelte';
+  import Hamburger from '$lib/components/Hamburger.svelte';
 
   export let body, headerImg, footer;
   const sections = body.map((section) => section.header);
@@ -33,6 +34,7 @@
     srcset={responsiveSrcSet(headerImg.filename, 1080 / 1920)}
     sizes="(max-width: 768px) calc(50vh * (1920 / 1080)), 100vw"
   />
+  <Hamburger {sections} />
 </header>
 
 <main>
@@ -59,6 +61,9 @@
 </footer>
 
 <style>
+  header {
+    position: relative;
+  }
   img.header {
     width: 100%;
     height: auto;

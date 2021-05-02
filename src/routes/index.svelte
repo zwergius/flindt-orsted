@@ -19,6 +19,3 @@
 <Section content={drinks} style="--bgColor: var(--dustyGreen)" />
 <Section content={info} style="--bgColor: var(--cphGreen)" />
 <Section content={bunker} style="--bgColor: var(--red)" />
-
-<style style lang="postcss">
-</style>
