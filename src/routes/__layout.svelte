@@ -21,7 +21,7 @@
   const resolver = new RichTextResolver();
 
   onMount(async () => {
-    const smoothscroll = (await import('smoothscroll-polyfill')).default;
+    const smoothscroll = await import('smoothscroll-polyfill');
     smoothscroll.polyfill();
   });
 </script>

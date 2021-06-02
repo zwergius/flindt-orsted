@@ -17,6 +17,9 @@
   <div class="storyblok-content-wrapper" {style}>
     <h2>{content.header}</h2>
     {@html resolver.render(content.body)}
+    {#if content.menu}
+      <a alt={content.menu?.alt} href={content.menu?.filename}>{content.menu?.title}</a>
+    {/if}
   </div>
 </section>
 
@@ -45,15 +48,31 @@
     height: 50vw;
     object-fit: cover;
   }
+
+  a {
+    color: var(--bodyFontColor);
+    border: 2px solid var(--bodyFontColor);
+    text-transform: uppercase;
+    padding: 1em 3em;
+    text-align: center;
+    transition: color 0.3s ease-out;
+    margin: 4em auto;
+  }
+
   /* Handheld - */
   @media only screen and (max-width: 767px) {
     div {
       height: 100vw;
+      padding-bottom: 0;
     }
 
     img {
       width: 100vw;
       height: 100vw;
+    }
+
+    a {
+      margin: auto;
     }
 
     section:nth-child(4) {
