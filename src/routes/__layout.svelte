@@ -32,13 +32,13 @@
     class="header"
     src={formattedSrc(headerImg.filename, 400, 1080 / 1920)}
     srcset={responsiveSrcSet(headerImg.filename, 1080 / 1920)}
-    sizes="(max-width: 768px) calc(50vh * (1920 / 1080)), 100vw"
+    heights="100vh"
   />
   <Hamburger {sections} />
+  <NavBar titles={sections} />
 </header>
 
 <main>
-  <NavBar titles={sections} />
   <slot />
 </main>
 
@@ -63,10 +63,14 @@
 <style>
   header {
     position: relative;
+    height: 100vh;
+    width: 100%;
   }
   img.header {
     width: 100%;
-    height: auto;
+    height: 100%;
+    display: block;
+    object-fit: cover;
   }
 
   footer {
@@ -94,15 +98,8 @@
     padding: 0 var(--bodyPadding);
   }
   @media only screen and (max-width: 767px) {
-    img.header {
-      height: 50vh;
-      width: 100%;
-      object-fit: cover;
-    }
     footer > div {
       flex-basis: 100%;
-    }
-    .image-wrapper {
     }
     .storyblok-content-wrapper {
       padding-right: 0;

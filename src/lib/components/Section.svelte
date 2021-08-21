@@ -5,6 +5,7 @@
   export let content, style;
   const resolver = new RichTextResolver();
   const id = encodeURIComponent(content.header.toLowerCase());
+  console.log(content);
 </script>
 
 <section {id}>
@@ -17,7 +18,7 @@
   <div class="storyblok-content-wrapper" {style}>
     <h2>{content.header}</h2>
     {@html resolver.render(content.body)}
-    {#if content.menu}
+    {#if content.menu.filename}
       <a alt={content.menu?.alt} rel="external" href={content.menu?.filename}
         >{content.menu?.title}</a
       >
