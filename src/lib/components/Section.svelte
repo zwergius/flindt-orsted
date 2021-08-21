@@ -5,7 +5,6 @@
   export let content, style;
   const resolver = new RichTextResolver();
   const id = encodeURIComponent(content.header.toLowerCase());
-  console.log(content);
 </script>
 
 <section {id}>

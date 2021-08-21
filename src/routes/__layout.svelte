@@ -32,7 +32,7 @@
     class="header"
     src={formattedSrc(headerImg.filename, 400, 1080 / 1920)}
     srcset={responsiveSrcSet(headerImg.filename, 1080 / 1920)}
-    heights="100vh"
+    sizes="calc(100vh * (1920 / 1080))"
   />
   <Hamburger {sections} />
   <NavBar titles={sections} />
