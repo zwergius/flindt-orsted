@@ -17,7 +17,7 @@
   <div class="storyblok-content-wrapper" {style}>
     <h2>{content.header}</h2>
     {@html resolver.render(content.body)}
-    {#if content.menu}
+    {#if content.menu.filename}
       <a alt={content.menu?.alt} rel="external" href={content.menu?.filename}
         >{content.menu?.title}</a
       >
