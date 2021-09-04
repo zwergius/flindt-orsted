@@ -18,8 +18,11 @@
     <h2>{content.header}</h2>
     {@html resolver.render(content.body)}
     {#if content.menu.filename}
-      <a alt={content.menu?.alt} rel="external" href={content.menu?.filename}
-        >{content.menu?.title}</a
+      <a
+        alt={content.menu?.alt}
+        rel="external noopener noreferrer"
+        target="_blank"
+        href={content.menu?.filename}>{content.menu?.title}</a
       >
     {/if}
   </div>

@@ -1,2 +1,12 @@
 [build]
   environment = { NODE_VERSION = "16.2.0", AWS_LAMBDA_JS_RUNTIME = "16.2.0" }
+[[redirects]]
+  from = "https://flindtorsted.dk"
+  to = "https://www.flindtorsted.cafe/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.flindtorsted.dk/"
+  to = "https://www.flindtorsted.cafe/"
+  status = 301
+  force = true
